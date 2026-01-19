@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>លិខិតអញ្ជើញ - ពិធីបុណ្យខួបគម្រប់៣ឆ្នាំ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#b8860b;
+      --bg1:#fff8e8;
+      --bg2:#fffdf7;
+      --ink:#3a2a12;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Battambang", system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% 10%, var(--bg1), transparent 60%),
+        linear-gradient(180deg, var(--bg2), #ffffff);
+      padding:28px 14px;
+    }
+
+    /* ===== COVER ===== */
+    .cover{
+      max-width:700px;
+      margin:80px auto;
+      background:linear-gradient(180deg, #fff6d8, #fff);
+      border-radius:22px;
+      border:2px solid rgba(184,134,11,.4);
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
+      text-align:center;
+      padding:60px 20px;
+      cursor:pointer;
+      transition:transform .6s ease, box-shadow .6s ease, opacity .8s ease;
+      position:relative;
+    }
+
+    .cover:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+    }
+
+    .cover h1{
+      font-family:"Moul","Battambang",sans-serif;
+      color:var(--gold);
+      font-size:30px;
+      margin:0 0 10px;
+    }
+
+    .cover p{
+      color:#6b4e1d;
+      font-size:18px;
+      margin:10px 0;
+    }
+
+    .open-btn{
+      margin-top:24px;
+      display:inline-block;
+      padding:12px 26px;
+      border-radius:30px;
+      background:linear-gradient(180deg, #d8b04a, #b8860b);
+      color:white;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,.2);
+    }
+
+    /* Loading spinner shown after click */
+    .loading{
+      margin:18px auto 0;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      border:3px solid rgba(184,134,11,.25);
+      border-top-color: rgba(184,134,11,.95);
+      animation:spin 0.8s linear infinite;
+      display:none;
+    }
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+
+    /* ===== INVITATION ===== */
+    .card{
+      max-width:900px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:18px;
+      border:2px solid rgba(184,134,11,.35);
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      overflow:hidden;
+      position:relative;
+      display:none;
+      opacity:0;                 /* for fade in */
+      transition: opacity 1s ease;
+    }
+
+    .wrap{padding:38px 26px 34px;}
+
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      margin-bottom:10px;
+      color:var(--gold);
+    }
+
+    .seal{
+      width:44px;height:44px;
+      border-radius:50%;
+      border:2px solid rgba(184,134,11,.55);
+      display:grid;
+      place-items:center;
+      background:radial-gradient(circle at 30% 30%, #fff7d2, #fff 60%);
+      font-weight:700;
+      font-family:"Moul","Battambang",sans-serif;
+      font-size:16px;
+    }
+
+    h1{
+      text-align:center;
+      color:var(--gold);
+      font-family:"Moul","Battambang",sans-serif;
+      font-size:26px;
+      margin:6px 0;
+    }
+
+    h2{
+      text-align:center;
+      color:var(--gold);
+      font-size:16px;
+      margin-bottom:18px;
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(184,134,11,.55), transparent);
+      margin:14px 0 18px;
+    }
+
+    p{font-size:16px; line-height:1.9;}
+
+    .center{text-align:center;font-weight:700;color:var(--gold);}
+
+    .section-title{
+      text-align:center;
+      font-weight:700;
+      color:var(--gold);
+      font-size:18px;
+      margin-top:16px;
+    }
+
+    .list{
+      list-style:none;
+      padding-left:0;
+      max-width:760px;
+      margin:10px auto 0;
+    }
+
+    .list li{
+      padding:6px 0;
+      border-bottom:1px dashed rgba(184,134,11,.22);
+    }
+
+    .schedule{
+      margin-top:10px;
+      border:1px solid rgba(184,134,11,.28);
+      border-radius:14px;
+      padding:14px;
+      background:linear-gradient(180deg, rgba(255,248,232,.75), #fff);
+    }
+
+    .schedule .row{
+      display:flex;
+      gap:10px;
+      padding:7px 0;
+      border-bottom:1px solid rgba(184,134,11,.18);
+      align-items:flex-start;
+    }
+
+    .schedule .row:last-child{border-bottom:none;}
+
+    .tag{
+      min-width:110px;
+      font-weight:700;
+      color:var(--gold);
+    }
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      border-left:5px solid rgba(184,134,11,.55);
+      background:rgba(255,248,232,.55);
+      border-radius:10px;
+    }
+
+    .thanks{
+      margin-top:16px;
+      text-align:center;
+      font-family:"Moul","Battambang",sans-serif;
+      color:var(--gold);
+      font-size:18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- COVER -->
+  <div class="cover" id="cover" onclick="openInvitation()">
+    <h1>លិខិតអញ្ជើញ</h1>
+    <p>ពិធីបុណ្យខួបគម្រប់ ៣ឆ្នាំ</p>
+    <p>ឧទ្ទិសកុសលជូនចំពោះវិញ្ញាណក្ខ័ន្ធ<br>មហាឧបាសក អ៊ុច សូផុន</p>
+    <div class="open-btn" id="openBtn">បើកលិខិតអញ្ជើញ</div>
+    <div class="loading" id="loading"></div>
+  </div>
+
+  <!-- INVITATION -->
+  <div class="card" id="invitation">
+    <div class="wrap">
+
+      <div class="topline">
+        <div class="seal">✦</div>
+        <div style="font-family:'Moul','Battambang',sans-serif;">លិខិតអញ្ជើញ</div>
+        <div class="seal">✦</div>
+      </div>
+
+      <h1>ពិធីបុណ្យខួបគម្រប់ ៣ឆ្នាំ</h1>
+      <h2>ឧទ្ទិសកុសលជូនចំពោះវិញ្ញាណក្ខ័ន្ធ មហាឧបាសក អ៊ុច សូផុន</h2>
+
+      <div class="divider"></div>
+
+      <p>
+        យើងខ្ញុំទាំងអស់គ្នាត្រូវជាភរិយា បងប្អូនកូនចៅ បានមូលមតិ ផ្តួចផ្តើមធ្វើពិធីបុណ្យគម្រប់ ៣ឆ្នាំ 
+        ឧទ្ទិសជូនចំពោះវិញ្ញាណក្ខ័ន្ធមហាឧបាសក អ៊ុច សូផុន ព្រមទាំងបុព្វការីជន មានជីដូន ជីតា និងញាតិការទាំង៧សន្តាន
+        ដែលបានចែកឋាន ទៅកាន់ លោកខាងមុខ។
+      </p>
+
+      <p class="center">សូមគោរអញ្ជើញ</p>
+
+      <p>
+        ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា ពុទ្ធបរិស័ទ និងញាតិមិត្តជិតឆ្ងាយទាំងអស់
+        អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ក្នុងកម្មវិធីបុណ្យខួបគម្រប់ ៣ឆ្នាំ នេះឱ្យបាន អធិកអធម
+        និងអនុមោទនាទទួលយកកុសល ផលបុណ្យទៅតាមកម្លាំងសទ្ធាជ្រះថ្លារៀងៗខ្លួន ។
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="section-title">អ្នកផ្តើមបុណ្យ</div>
+      <ul class="list">
+        <li>១- មហាឧបាសិកា គួន តៃ</li>
+        <li>២- ឧបាសិកា គួន តែន និង ឧបាសក កែម ចាន់ណា</li>
+        <li>៣- ឧបាសិកា ឡុង សាម៉ៃ</li>
+        <li>៤- ឧបាសិកាអ៊ុច សាឡៃ</li>
+        <li>៥- លោកស្រី អ៊ុច សូផុតាមណីជោតិ និង លោក មុំ ចាន់ថ្លា ព្រមទាំងបុត្រ</li>
+        <li>៦- កញ្ញា ឌឹម ខេមាគន្ធី</li>
+        <li>៧- លោក អ៊ុច សារ៉ាខាន់ និងលោកជំទាវ ហ៊ុន កុសនី ព្រមទាំងបុត្រ</li>
+        <li>៨- លោក កែម សុបញ្ញា និងលោកស្រី សោម សុជាតា ព្រមទាំងបុត្រ</li>
+        <li>ព្រមទាំងញាតិសាច់សារលោកហិតទាំងអស់។</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <div class="section-title">កម្មវិធីបុណ្យ</div>
+      <div class="schedule">
+        <div class="row">
+          <div class="tag">ថ្ងៃ/កាលបរិច្ឆេទ</div>
+          <div>-ពេលព្រឹកថ្ងៃអាទិត្យ ១៣រោច ខែមាឃ ឆ្នាំ ម្សាញ់ សប្តស័ក ព.ស ២៥៦៩ ត្រូវនឹង ថ្ងៃទី ១៥ ខែ កុម្ភៈ ឆ្នាំ ២០២៦ ។</div>
+        </div>
+        <div class="row">
+          <div class="tag">ម៉ោង ៨:៣០ ព្រឹក</div>
+          <div>
+            ជួបជុំពុទ្ធបរិស័ទបងប្អូនញាតិមិត្តជិតឆ្ងាយ ធ្វើបទ នមស្ការព្រះរតន ត្រ័យ សមាទានសីល
+            និមន្តព្រះសង្ឃចំរើនព្រះបរិត្ត និងសម្តែងធម៌ទេសនា រួចវេរ ភត្តាហារ ទេយ្យវត្ថុ
+            និងបច្ច័យបួន ប្រគេន ដល់ព្រះសង្ឃ បង្សុកូលដារឆ្លង ។
+          </div>
+        </div>
+        <div class="row">
+          <div class="tag">ម៉ោង ១១:០០ ថ្ងៃ</div>
+          <div>និមន្តព្រះសង្ឃឆាន់ចង្ហាន់ អញ្ជើញភ្ញៀវកិត្តយសពិសារភោជនាហារ ជាកិច្ចបង្ហើយបុណ្យ។</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong style="color:var(--gold)">សូមបញ្ជាក់៖</strong>
+        កម្មវិធីបុណ្យនេះប្រារព្ធនៅគេហដ្ឋានមហាឧបាសិកា គួន តៃ ស្ថិតនៅភូមិកោះនរា សង្កាត់ និរោធ
+        ខណ្ឌច្បារអំពៅ រាជធានីភ្នំពេញ ។
+      </div>
+
+      <div class="thanks">សូមអរព្រះគុណ និងអរគុណ!</div>
+
+    </div>
+  </div>
+
+  <script>
+    let opened = false;
+
+    function openInvitation(){
+      if(opened) return;
+      opened = true;
+
+      const cover = document.getElementById('cover');
+      const loading = document.getElementById('loading');
+      const openBtn = document.getElementById('openBtn');
+      const card = document.getElementById('invitation');
+
+      // show spinner + hide button text
+      openBtn.style.display = 'none';
+      loading.style.display = 'block';
+
+      // fade cover out
+      cover.style.opacity = '0';
+
+      // delay before showing invitation
+      setTimeout(() => {
+        cover.style.display = 'none';
+
+        card.style.display = 'block';
+        window.scrollTo({top:0, behavior:'smooth'});
+
+        // small delay then fade in invitation
+        setTimeout(() => {
+          card.style.opacity = '1';
+        }, 50);
+
+      }, 800); // 👈 change delay here (ms)
+    }
+  </script>
+
+</body>
+</html>
